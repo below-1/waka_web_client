@@ -26,55 +26,59 @@ const waka_alias = alias({
 })
 
 export default {
-	client: {
-		input: config.client.input(),
-		output: config.client.output(),
-		plugins: [
-			replace({
-				'process.browser': true,
-				'process.env.NODE_ENV': JSON.stringify(mode)
-			}),
-			svelte({
-				compilerOptions: {
-					dev,
-					hydratable: true
-				}
-			}),
-			url({
-				sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
-				publicPath: '/client/'
-			}),
-			resolve({
-				browser: true,
-				dedupe: ['svelte']
-			}),
-			commonjs(),
+  client: {
+    input: config.client.input(),
+    output: config.client.output(),
+    plugins: [
+      replace({
+        'process.browser': true,
+        'process.env.NODE_ENV': JSON.stringify(mode)
+      }),
+      svelte({
+        compilerOptions: {
+          dev,
+          hydratable: true
+        }
+      }),
+      url({
+        sourceDir: path.resolve(__dirname, 'src/node_modules/images'),
+        publicPath: '/client/'
+      }),
+      resolve({
+        browser: true,
+        dedupe: ['svelte']
+      }),
+      commonjs(),
 
-			legacy && babel({
-				extensions: ['.js', '.mjs', '.html', '.svelte'],
-				babelHelpers: 'runtime',
-				exclude: ['node_modules/@babel/**'],
-				presets: [
-					['@babel/preset-env', {
-						targets: '> 0.25%, not dead'
-					}]
-				],
-				plugins: [
-					'@babel/plugin-syntax-dynamic-import',
-					['@babel/plugin-transform-runtime', {
-						useESModules: true
-					}]
-				]
-			}),
+      legacy && babel({
+        extensions: ['.js', '.mjs', '.html', '.svelte'],
+        babelHelpers: 'runtime',
+        exclude: ['node_modules/@babel/**'],
+        presets: [
+          ['@babel/preset-env', {
+            targets: '> 0.25%, not dead'
+          }]
+        ],
+        plugins: [
+          '@babel/plugin-syntax-dynamic-import',
+          ['@babel/plugin-transform-runtime', {
+            useESModules: true
+          }]
+        ]
+      }),
 
-			!dev && terser({
-				module: true
-			})
-		],
+      !dev && terser({
+        module: true
+      })
+    ],
 
-		preserveEntrySignatures: false,
-		onwarn,
-	},
+    preserveEntrySignatures: false,
+    onwarn,
+    external: ['apexcharts'],
+    paths: {
+    	apexcharts: 'https://cdn.jsdelivr.net/npm/apexcharts'
+    }
+  },
 
 	server: {
 		input: config.server.input(),

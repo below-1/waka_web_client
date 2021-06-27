@@ -33,18 +33,18 @@
 
 	let is_slim = true;
 	let user = {}
-
-	function calculateRole (user) {
+	function calcRole (user) {
 		if (!user || !user.role) {
 			return 'LOADING'
+		} else {
+			return user.role
 		}
-		return user.role
 	}
-	$: role = calculateRole(user);
+	$: role = calcRole(user)
 
 	setContext('user', {
 		getUser: () => user,
-		role
+		getRole: () => calcRole(user)
 	})
 
 	const baseMenus = [

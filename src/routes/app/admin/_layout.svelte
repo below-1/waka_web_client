@@ -3,7 +3,12 @@
   import Unauthorized from '../_comps/Unauthorized.svelte'
   import Loading from '../_comps/Loading.svelte'
 
-  const { role } = getContext('user')
+  const { getRole } = getContext('user')
+  let role = 'LOADING'
+
+  onMount(() => {
+    role = getRole()    
+  })
 </script>
 
 {#if role == 'ADMIN'}

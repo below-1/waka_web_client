@@ -23,6 +23,6 @@
   <a 
     href="/app"
     class="spinner w-24 h-24 text-green-500">
-    <FaHome />
+    <FaSpinner />
   </a>
 </section>

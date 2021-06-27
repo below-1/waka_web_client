@@ -35,6 +35,14 @@
   let saleFilter = createFilter();
   let purchaseFilter = createFilter();
 
+  function formatChartDate (month, year) {
+    const d = new Date(year, month, 1)
+    return format(d, 'MMMM, yyyy', { locale: id })
+  }
+
+  $: saleDateText = formatChartDate(saleFilter.month, saleFilter.year)
+  $: purchaseDateText = formatChartDate(purchaseFilter.month, purchaseFilter.year)
+
   async function getTopAR () {
     if (!process.browser) return;
     const url = '/api/v1/ar'
@@ -231,7 +239,7 @@
   <section class="chart-container bg-white">
     <div class="flex items-center justify-between p-4">
       <h1 class="text-lg font-semibold border-b-1 border-gray-300">
-        Grafik Penjualan Bulan Januari 2021
+        Grafik Penjualan Bulan {saleDateText}
       </h1>
       <div class="flex gap-4">
         <div class="flex flex-col">
@@ -275,7 +283,7 @@
   <section class="chart-container bg-white pa-4">
     <div class="flex items-center justify-between p-4">
       <h1 class="text-lg font-semibold border-b-1 border-gray-300">
-        Grafik Pembelian Bulan Januari 2021
+        Grafik Pembelian Bulan {purchaseDateText}
       </h1>
       <div class="flex gap-4">
         <div class="flex flex-col">
@@ -311,6 +319,7 @@
     </div>
     <HomeChart
       name="purchases"
+      color="#F472B6"
       data={purchases}
     />
   </section>

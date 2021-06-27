@@ -125,6 +125,8 @@
           <label class="text-sm">Jumlah Barang Rusak</label>
           <input 
             type="number"
+            max={defect_dialog_item.available}
+            min="0"
             bind:value={defect_dialog_defect} 
             class="w-full border border-gray-300 rounded px-2 py-1" />
         </div>

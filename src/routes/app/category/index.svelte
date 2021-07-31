@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte'
+  import Pagination from '../../../components/Pagination.svelte'
   import '../../../styles/jo-table.css'
   import { get, del } from '../../../commons/api'
   import FaPencilAlt from 'svelte-icons/fa/FaPencilAlt.svelte'
